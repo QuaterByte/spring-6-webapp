@@ -2,6 +2,7 @@ package guru.springframework.spring6webapp.domain;
 
 import jakarta.persistence.*;
 
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -49,5 +50,31 @@ public class Book {
     public void setTitle(String title) {
         this.title = title;
     }
-    
+
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                "id=" + id +
+                ", isbn=" + isbn +
+                ", authors=" + authors +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if(this == o)
+            return  true;
+        if(o == null)
+            return false;
+        if(getClass() != o.getClass())
+            return  false;
+        Book otherBook = (Book) o;
+        return getId().equals(otherBook.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId());
+    }
 }
