@@ -2,6 +2,7 @@ package guru.springframework.spring6webapp.domain;
 
 import jakarta.persistence.*;
 
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -13,10 +14,13 @@ public class Book {
     private String title;
     private String isbn;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "author_book", joinColumns = @JoinColumn(name = "book_id"),
             inverseJoinColumns = @JoinColumn(name = "author_id"))
-    private Set<Author> authors;
+    private Set<Author> authors = new HashSet<>();
+
+    @ManyToOne
+    private Publisher publisher;
 
 
     public Set<Author> getAuthors() {
@@ -51,6 +55,13 @@ public class Book {
         this.title = title;
     }
 
+    public Publisher getPublisher() {
+        return publisher;
+    }
+
+    public void setPublisher(Publisher publisher) {
+        this.publisher = publisher;
+    }
 
     @Override
     public String toString() {
@@ -66,10 +77,8 @@ public class Book {
     public boolean equals(Object o) {
         if(this == o)
             return  true;
-        if(o == null)
+        if(o == null || getClass() != o.getClass())
             return false;
-        if(getClass() != o.getClass())
-            return  false;
         Book otherBook = (Book) o;
         return getId().equals(otherBook.getId());
     }
