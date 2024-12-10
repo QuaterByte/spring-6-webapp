@@ -14,6 +14,8 @@ public class Publisher {
     private String publisherName;
     private String address;
     private String zipcode;
+    private String city;
+    private String state;
 
     @OneToMany(mappedBy = "publisher")
     private Set<Book> books;
@@ -24,6 +26,14 @@ public class Publisher {
 
     public void setBooks(Set<Book> books) {
         this.books = books;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 
     public Long getId() {
@@ -65,8 +75,18 @@ public class Publisher {
                 ", publisherName='" + publisherName + '\'' +
                 ", address='" + address + '\'' +
                 ", zipcode='" + zipcode + '\'' +
+                ", city='" + city + '\'' +
+                ", state='" + state + '\'' +
                 ", books=" + books +
                 '}';
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
     }
 
     @Override
